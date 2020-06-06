@@ -21,7 +21,7 @@ var enemyAttack = 12;
 var fight = function (enemyName) {
 
   // 'while' loop CONTROL FLOW STATEMENT added to assess combatants' health, determining whether the battle should continue.
-  while (enemyHealth > 0) {
+  while (enemyHealth > 0 && playerHealth > 0) {
 
     // Alert users that they are starting the round. [Temporarily disabled]
     // window.alert("Welcome to Robot Gladiators!");
@@ -30,6 +30,25 @@ var fight = function (enemyName) {
     // This later determines whether they will be jettisoned from the fight function.
     var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
 
+    if (promptFight === "skip" || promptFight === "SKIP") {
+      // Confirm they would like to skip the fight.
+      var confirmSkip = window.confirm("Are you sure you'd like to skip?");
+
+      // If player selects 'Ok' (true), announce their decision to leave.
+      if (confirmSkip) {
+        window.alert(playerName + " has chosen to skip the fight. Bye, Felicia!");
+        // Subtract a value from playerMoney. 
+        playerMoney = playerMoney - 10;
+        // Output the string "playerMoney" in addition to the current value of the player's money. (Gee, that's not confusing.)
+        console.log("playerMoney", playerMoney);
+        break;
+      }
+
+      // If player selects 'Cancel' (false), RUN THE >>fight()<< FUNCTION AGAIN.
+      else {
+        fight();
+      }
+    }
 
     // If the player responds to the prompt with 'fight' or 'FIGHT'...
     if (promptFight === "fight" || promptFight === "FIGHT") {
@@ -47,6 +66,9 @@ var fight = function (enemyName) {
       // (else), announce his health value. 
       if (enemyHealth <= 0) {
         window.alert(enemyName + " has died!");
+        // "Break" out of (i.e., exit) the loop once this condition is fulfilled.
+        // Note: BREAK statements must always be positioned at the bottom of a condition code block, lest they prevent a code block from executing.
+        break;
       }
       else {
         window.alert(enemyName + " still has " + enemyHealth + " health left.");
@@ -67,27 +89,12 @@ var fight = function (enemyName) {
       // (else), announce his health value. 
       if (playerHealth <= 0) {
         window.alert(playerName + " has died!");
+        // "Break" out of (i.e., exit) the loop once this condition is fulfilled.
+        // Note: BREAK statements must always be positioned at the bottom of a condition code block, lest they prevent a code block from executing.
+        break;
       }
       else {
         window.alert(playerName + " still has " + playerHealth + " health left.");
-      }
-
-
-
-    } else if (promptFight === "skip" || promptFight === "SKIP") {
-      // Confirm they would like to skip the fight.
-      var confirmSkip = window.confirm("Are you sure you'd like to skip?");
-
-      // If player selects 'Ok' (true), announce their decision to leave.
-      if (confirmSkip) {
-        window.alert(playerName + " has chosen to skip the fight. Bye, Felicia!");
-        // Subtract a value from playerMoney. 
-        playerMoney = playerMoney - 2;
-      }
-
-      // If player selects 'Cancel' (false), RUN THE >>fight()<< FUNCTION AGAIN.
-      else {
-        fight();
       }
 
 
